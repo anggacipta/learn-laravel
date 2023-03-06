@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pzn', function (){
+    return "Hello Angga Cipta";
+});
+
+Route::redirect('/youtube', '/pzn');
+
+Route::fallback(function (){
+    return "Not found page";
+});

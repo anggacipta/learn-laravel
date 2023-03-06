@@ -26,3 +26,13 @@ Route::redirect('/youtube', '/pzn');
 Route::fallback(function (){
     return "Not found page";
 });
+
+Route::view('/hello', 'hello', ['name' => 'Angga']);
+
+Route::get('/hello-again', function (){
+    return view('hello', ['name' => 'Angga']);
+});
+
+Route::get('/hello-world', function (){
+    return view('hello.helloworld', ['name' => 'Angga']);
+});

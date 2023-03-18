@@ -111,6 +111,11 @@ Route::get('/redirect/to', [\App\Http\Controllers\RedirectController::class, 're
 Route::get('/redirect/name', [\App\Http\Controllers\RedirectController::class, 'redirectName']);
 Route::get('/redirect/name/{name}', [\App\Http\Controllers\RedirectController::class, 'redirectHello'])
 ->name('redirect-hello');
+Route::get('/redirect/named', function (){
+//    return route('redirect-hello', ['name'=>'Angga']);
+//    return url()->route('redirect-hello', ['name'=>'Angga']);
+    return Illuminate\Support\Facades\URL::route('redirect-hello', ['name'=>'Angga']);
+});
 Route::get('/redirect/action', [\App\Http\Controllers\RedirectController::class, 'redirectAction']);
 Route::get('/redirect/away', [\App\Http\Controllers\RedirectController::class, 'redirectAway']);
 
@@ -131,5 +136,30 @@ Route::middleware(['contoh:PZN,401'])->prefix('/middleware')->group(function (){
     });
 });
 
+Route::get('/url/action', function (){
+//    return action([\App\Http\Controllers\FormController::class, 'form'], []);
+//    return url()->action([\App\Http\Controllers\FormController::class, 'form']);
+    return \Illuminate\Support\Facades\URL::action([\App\Http\Controllers\FormController::class, 'form'], []);
+});
 Route::get('/form', [\App\Http\Controllers\FormController::class, 'form']);
 Route::post('/form', [\App\Http\Controllers\FormController::class, 'submitForm']);
+
+Route::get('/url/current', function (){
+    return \Illuminate\Support\Facades\URL::full();
+});
+
+Route::get('/session/create', [\App\Http\Controllers\SessionController::class, 'createSession']);
+Route::get('/session/get', [\App\Http\Controllers\SessionController::class, 'getSession']);
+
+
+Route::get('/error/sample', function (){
+    throw new Exception('sample error');
+});
+
+Route::get('/error/manual', function (){
+    report(new Exception('sample error'));
+    return 'Ok';
+});
+Route::get('/error/validation', function (){
+   throw new \App\Exceptions\ValidationException('Validation Error');
+});
